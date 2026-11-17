@@ -1,0 +1,24 @@
+* text=auto
+*.hpp text eol=lf
+*.cpp text eol=lf
+*.cmake text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+
+# Keep machine-local/generated material out of Git source archives as well.
+/out export-ignore
+/build export-ignore
+/.tools export-ignore
+/CMakeUserPresets.json export-ignore
+/.vs export-ignore
+/AGENTS.md export-ignore
+/CMakeCache.txt export-ignore
+/CMakeFiles export-ignore
+/cmake_install.cmake export-ignore
+/install_manifest.txt export-ignore
+/CTestTestfile.cmake export-ignore
+/Testing export-ignore
+

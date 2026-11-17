@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.24)
+execute_process(COMMAND "${EXAMPLE}"
+    RESULT_VARIABLE result OUTPUT_VARIABLE output ERROR_VARIABLE error)
+if(NOT result STREQUAL "0")
+    message(FATAL_ERROR "Grid mapping example failed: ${result}\n${output}\n${error}")
+endif()
+string(REPLACE "\r\n" "\n" output "${output}")
+if(NOT output STREQUAL "Source index 441 maps to target index 480\n")
+    message(FATAL_ERROR "Unexpected grid mapping example output: ${output}")
+endif()

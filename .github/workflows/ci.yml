@@ -1,0 +1,45 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    name: ${{ matrix.os }} / ${{ matrix.build }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-24.04, configure: gcc-debug, build: gcc-debug}
+          - {os: ubuntu-24.04, configure: gcc-release, build: gcc-release}
+          - {os: ubuntu-24.04, configure: clang-debug, build: clang-debug}
+          - {os: ubuntu-24.04, configure: clang-release, build: clang-release}
+          - {os: ubuntu-24.04, configure: sanitizers, build: sanitizers}
+          - {os: windows-2022, configure: msvc, build: msvc-debug}
+          - {os: windows-2022, configure: msvc, build: msvc-release}
+          - {os: macos-14, configure: clang-debug, build: clang-debug}
+          - {os: macos-14, configure: clang-release, build: clang-release}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build tools
+        run: python -m pip install cmake==3.31.6 ninja==1.11.1.4
+      - name: Configure
+        run: cmake --preset ${{ matrix.configure }}
+      - name: Build
+        run: cmake --build --preset ${{ matrix.build }} --parallel 2
+      - name: Test
+        run: ctest --preset ${{ matrix.build }}
+  portable-windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Debug and Release verification with runner-installed Visual Studio
+        shell: pwsh
+        run: ./scripts/check.ps1
+

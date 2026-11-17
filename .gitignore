@@ -1,0 +1,15 @@
+/build/
+/out/
+/.tools/
+/CMakeUserPresets.json
+/.vs/
+# Accidental in-source CMake output is local too.
+/CMakeCache.txt
+/CMakeFiles/
+/cmake_install.cmake
+/install_manifest.txt
+/CTestTestfile.cmake
+/Testing/
+*.user
+*.swp
+
