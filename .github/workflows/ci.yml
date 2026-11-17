@@ -20,8 +20,8 @@ jobs:
           - {os: ubuntu-24.04, configure: sanitizers, build: sanitizers}
           - {os: windows-2022, configure: msvc, build: msvc-debug}
           - {os: windows-2022, configure: msvc, build: msvc-release}
-          - {os: macos-14, configure: clang-debug, build: clang-debug}
-          - {os: macos-14, configure: clang-release, build: clang-release}
+          - {os: macos-15, configure: clang-debug, build: clang-debug}
+          - {os: macos-15, configure: clang-release, build: clang-release}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
